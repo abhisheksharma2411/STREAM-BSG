@@ -1,0 +1,4 @@
+method,p50_ms,p95_ms,p99_ms
+lr,—,—,—
+xgb_tabular,0.19,0.22,0.34
+streambsg,0.20,0.23,0.37

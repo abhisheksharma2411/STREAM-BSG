@@ -1,0 +1,29 @@
+# STREAM-BSG dependencies
+# Tested with Python 3.10+
+
+# Core data
+numpy>=1.24
+pandas>=2.0
+pyarrow>=14.0       # parquet I/O
+
+# Visualization (figure generation)
+matplotlib>=3.7
+networkx>=3.0
+
+# Machine learning (baselines)
+scikit-learn>=1.3
+xgboost>=2.0
+
+# Graph neural network baseline (GraphSAGE)
+# Uncomment when implementing the GraphSAGE baseline:
+# torch>=2.0
+# torch-geometric>=2.4
+
+# Streaming and state store (optional — only needed for the streaming deployment example)
+# Uncomment when implementing the streaming pipeline:
+# kafka-python>=2.0
+# redis>=5.0
+# apache-flink>=1.18
+
+# Development / testing
+pytest>=7.4

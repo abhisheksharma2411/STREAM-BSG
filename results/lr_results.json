@@ -1,0 +1,34 @@
+{
+  "method": "lr",
+  "metrics": {
+    "roc_auc": 0.6519037962979037,
+    "pr_auc": 0.04918718557939374,
+    "f1_best": 0.15972001272669425,
+    "recall_at_5pct_fpr": 0.3125
+  },
+  "latency_ms": {
+    "p50": null,
+    "p95": null,
+    "p99": null
+  },
+  "n_train": 414204,
+  "n_test": 88759,
+  "config": {
+    "seed": 42,
+    "train_frac": 0.7,
+    "val_frac": 0.15,
+    "class_weight": "balanced",
+    "max_iter": 1000,
+    "max_cat_cardinality": 50,
+    "n_numeric_features": 379,
+    "n_categorical_features": 12,
+    "n_dropped_high_card": 7,
+    "val_metrics": {
+      "roc_auc": 0.6865665731905254,
+      "pr_auc": 0.06680342871299758,
+      "f1_best": 0.17264081931236286,
+      "recall_at_5pct_fpr": 0.32136105860113423
+    }
+  },
+  "timestamp": "2026-05-19T03:25:35.666244+00:00"
+}

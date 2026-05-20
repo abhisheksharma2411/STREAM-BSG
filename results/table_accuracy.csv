@@ -1,0 +1,4 @@
+method,roc_auc,pr_auc,f1_best,recall_at_5pct_fpr
+lr,0.6519,0.0492,0.1597,0.3125
+xgb_tabular,0.6862,0.1252,0.2468,0.3487
+streambsg,0.8885,0.6778,0.7767,0.7111

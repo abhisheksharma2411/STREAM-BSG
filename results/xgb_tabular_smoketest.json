@@ -1,0 +1,45 @@
+{
+  "method": "xgb_tabular",
+  "metrics": {
+    "roc_auc": 0.5361185983827493,
+    "pr_auc": 0.03966449571687007,
+    "f1_best": 0.125,
+    "recall_at_5pct_fpr": 0.2
+  },
+  "latency_ms": {
+    "p50": 0.18741656094789505,
+    "p95": 0.2189123071730137,
+    "p99": 0.24025045102462178
+  },
+  "n_train": 3507,
+  "n_test": 752,
+  "config": {
+    "seed": 42,
+    "train_frac": 0.7,
+    "val_frac": 0.15,
+    "max_cat_cardinality": 50,
+    "n_numeric_features": 6,
+    "n_categorical_features": 2,
+    "n_dropped_high_card": 5,
+    "xgb_params": {
+      "n_estimators": 300,
+      "max_depth": 6,
+      "learning_rate": 0.1,
+      "subsample": 0.8,
+      "colsample_bytree": 0.8,
+      "tree_method": "hist",
+      "eval_metric": "aucpr",
+      "scale_pos_weight": 84.53658536585365,
+      "random_state": 42,
+      "n_jobs": -1
+    },
+    "latency_warmup": 100,
+    "val_metrics": {
+      "roc_auc": 0.5829407806191117,
+      "pr_auc": 0.09218722937638521,
+      "f1_best": 0.2,
+      "recall_at_5pct_fpr": 0.25
+    }
+  },
+  "timestamp": "2026-05-19T03:20:27.661015+00:00"
+}

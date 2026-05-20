@@ -1,0 +1,75 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environments
+.env
+.venv
+env/
+venv/
+ENV/
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Data files (don't commit datasets)
+data/*.csv
+data/*.parquet
+data/*.zip
+data/raw/
+data/processed/
+data/ieee-fraud-detection/
+
+# Output / results: ignore the directory but track the small JSON/CSV
+# reproducibility artifacts the paper references.
+results/*
+!results/*.json
+!results/*.csv
+runs/
+checkpoints/
+*.log
+
+# Latex build artifacts
+paper/*.aux
+paper/*.bbl
+paper/*.blg
+paper/*.log
+paper/*.out
+paper/*.synctex.gz
+paper/*.fdb_latexmk
+paper/*.fls
+paper/*.toc
+
+# Secrets (don't commit credentials)
+.env.local
+*.key
+secrets/
