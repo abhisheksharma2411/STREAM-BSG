@@ -44,16 +44,24 @@ Thumbs.db
 # Data files (don't commit datasets)
 data/*.csv
 data/*.parquet
+data/**/*.csv
+data/**/*.parquet
 data/*.zip
 data/raw/
 data/processed/
 data/ieee-fraud-detection/
 
-# Output / results: ignore the directory but track the small JSON/CSV
-# reproducibility artifacts the paper references.
+# Output / results: ignore the directory but track the small JSON / CSV / MD
+# reproducibility artifacts the paper references (including nested subdirs
+# like results/ablation_0p5pct/).
 results/*
 !results/*.json
 !results/*.csv
+!results/*.md
+!results/*/
+!results/**/*.json
+!results/**/*.csv
+!results/**/*.md
 runs/
 checkpoints/
 *.log

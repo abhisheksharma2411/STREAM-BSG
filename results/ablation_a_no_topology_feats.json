@@ -1,0 +1,182 @@
+{
+  "method": "streambsg_ablation_a_no_topology_feats",
+  "ablation": {
+    "description": "STREAM-BSG with topology-targeted features removed; retains only general-purpose node/edge/subgraph features.",
+    "dropped_features": [
+      "feat_amount_above_p95",
+      "feat_bank_change_on_this_row",
+      "feat_bank_change_recent",
+      "feat_duplicate_invoice_count_in_window",
+      "feat_has_cycle_2hop",
+      "feat_invoice_amount_collision_in_window",
+      "feat_payment_term_zscore_current",
+      "feat_ring_detection_score",
+      "feat_shell_supplier_density",
+      "feat_supplier_attr_change_on_this_row",
+      "feat_supplier_attribute_change_recent"
+    ],
+    "n_features_used": 38,
+    "n_features_dropped": 11
+  },
+  "metrics": {
+    "roc_auc": 0.788136486381474,
+    "pr_auc": 0.425272902184897,
+    "f1_best": 0.5398692810457517,
+    "recall_at_5pct_fpr": 0.47282608695652173
+  },
+  "operating_points": {
+    "f1_optimal": {
+      "threshold": 0.7389569282531738,
+      "threshold_source": "best F1 on validation set",
+      "aggregate": {
+        "recall": 0.3695652173913043,
+        "fpr": 5.704181164793794e-05,
+        "f1": 0.5379037574159525,
+        "precision": 0.9878934624697336
+      },
+      "per_topology": {
+        "T1_vendor_injection": {
+          "n": 227,
+          "detected": 227,
+          "recall": 1.0
+        },
+        "T2_invoice_cycling_row": {
+          "n": 360,
+          "detected": 0,
+          "recall": 0.0
+        },
+        "T2_invoice_cycling_event": {
+          "n": 180,
+          "detected": 0,
+          "recall": 0.0
+        },
+        "T3_payment_term_manip": {
+          "n": 142,
+          "detected": 0,
+          "recall": 0.0
+        },
+        "T4_shell_supplier_ring": {
+          "n": 186,
+          "detected": 181,
+          "recall": 0.9731182795698925
+        },
+        "T5_wire_redirection": {
+          "n": 189,
+          "detected": 0,
+          "recall": 0.0
+        }
+      }
+    },
+    "fpr_5pct": {
+      "threshold": 0.131432443857193,
+      "threshold_source": "largest threshold with test FPR <= 5%",
+      "aggregate": {
+        "recall": 0.47282608695652173,
+        "fpr": 0.049877360104956935,
+        "f1": 0.17405801933977993,
+        "precision": 0.106661217817736
+      },
+      "per_topology": {
+        "T1_vendor_injection": {
+          "n": 227,
+          "detected": 227,
+          "recall": 1.0
+        },
+        "T2_invoice_cycling_row": {
+          "n": 360,
+          "detected": 36,
+          "recall": 0.1
+        },
+        "T2_invoice_cycling_event": {
+          "n": 180,
+          "detected": 31,
+          "recall": 0.17222222222222222
+        },
+        "T3_payment_term_manip": {
+          "n": 142,
+          "detected": 11,
+          "recall": 0.07746478873239436
+        },
+        "T4_shell_supplier_ring": {
+          "n": 186,
+          "detected": 186,
+          "recall": 1.0
+        },
+        "T5_wire_redirection": {
+          "n": 189,
+          "detected": 62,
+          "recall": 0.328042328042328
+        }
+      }
+    }
+  },
+  "n_train": 414204,
+  "n_test": 88759,
+  "config": {
+    "seed": 42,
+    "train_frac": 0.7,
+    "val_frac": 0.15,
+    "n_features": 38,
+    "feature_cols": [
+      "feat_amount_p95_history",
+      "feat_buyer_1hop_supplier_count",
+      "feat_buyer_2hop_supplier_age_min",
+      "feat_buyer_2hop_supplier_count",
+      "feat_buyer_age_days",
+      "feat_buyer_amount_std",
+      "feat_buyer_attribute_stability",
+      "feat_buyer_avg_amount",
+      "feat_buyer_avg_supplier_age",
+      "feat_buyer_first_seen_recency",
+      "feat_buyer_supplier_age_min",
+      "feat_buyer_supplier_age_std",
+      "feat_buyer_total_volume_30d",
+      "feat_buyer_tx_count_30d",
+      "feat_buyer_unique_suppliers",
+      "feat_days_since_last_tx",
+      "feat_edge_age_days",
+      "feat_edge_amount_std",
+      "feat_edge_amount_zscore_current",
+      "feat_edge_avg_amount",
+      "feat_edge_total_volume",
+      "feat_edge_tx_count",
+      "feat_max_path_length_2hop",
+      "feat_payment_term_mean",
+      "feat_payment_term_std",
+      "feat_subgraph_amount_concentration",
+      "feat_subgraph_attribute_homogeneity",
+      "feat_subgraph_density",
+      "feat_subgraph_volume_velocity",
+      "feat_supplier_age_days",
+      "feat_supplier_amount_std",
+      "feat_supplier_attribute_change_count",
+      "feat_supplier_attribute_stability",
+      "feat_supplier_avg_amount",
+      "feat_supplier_total_volume_30d",
+      "feat_supplier_tx_count_30d",
+      "feat_supplier_unique_buyers",
+      "feat_tx_cadence_score"
+    ],
+    "xgb_params": {
+      "n_estimators": 400,
+      "max_depth": 6,
+      "learning_rate": 0.08,
+      "subsample": 0.8,
+      "colsample_bytree": 0.8,
+      "tree_method": "hist",
+      "eval_metric": "aucpr",
+      "scale_pos_weight": 83.13650213284582,
+      "random_state": 42,
+      "n_jobs": -1
+    },
+    "val_metrics": {
+      "roc_auc": 0.7722871406000436,
+      "pr_auc": 0.41891321964259765,
+      "f1_best": 0.5454545454545455,
+      "recall_at_5pct_fpr": 0.46502835538752363
+    },
+    "best_f1_threshold": 0.7389569282531738,
+    "val_f1_at_threshold": 0.5454545454545455
+  },
+  "timestamp": "2026-07-07T19:54:34.136922+00:00"
+}

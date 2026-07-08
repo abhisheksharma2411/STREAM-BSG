@@ -1,0 +1,282 @@
+{
+  "method": "graphsage",
+  "metrics": {
+    "roc_auc": 0.6872031139042308,
+    "pr_auc": 0.08635628856259829,
+    "f1_best": 0.2390772457182803,
+    "recall_at_5pct_fpr": 0.401268115942029
+  },
+  "latency_ms": {
+    "p50": 0.25158299831673503,
+    "p95": 0.4588792013237249,
+    "p99": 1.741903134388849
+  },
+  "operating_points": {
+    "f1_optimal": {
+      "threshold": 0.9999867677688599,
+      "threshold_source": "best F1 on validation set",
+      "aggregate": {
+        "recall": 0.3179347826086957,
+        "fpr": 0.017363527465632307,
+        "f1": 0.23580786026200873,
+        "precision": 0.18739989321943407
+      },
+      "per_topology": {
+        "T1_vendor_injection": {
+          "n": 227,
+          "detected": 176,
+          "recall": 0.775330396475771
+        },
+        "T2_invoice_cycling_row": {
+          "n": 360,
+          "detected": 10,
+          "recall": 0.027777777777777776
+        },
+        "T3_payment_term_manip": {
+          "n": 142,
+          "detected": 1,
+          "recall": 0.007042253521126761
+        },
+        "T4_shell_supplier_ring": {
+          "n": 186,
+          "detected": 161,
+          "recall": 0.8655913978494624
+        },
+        "T5_wire_redirection": {
+          "n": 189,
+          "detected": 3,
+          "recall": 0.015873015873015872
+        },
+        "T2_invoice_cycling_event": {
+          "n": 180,
+          "detected": 5,
+          "recall": 0.027777777777777776
+        }
+      }
+    },
+    "fpr_5pct": {
+      "threshold": 0.05604555457830429,
+      "threshold_source": "largest threshold with test FPR <= 5%",
+      "aggregate": {
+        "recall": 0.401268115942029,
+        "fpr": 0.04975186811933147,
+        "f1": 0.14996614759647933,
+        "precision": 0.09221482098251457
+      },
+      "per_topology": {
+        "T1_vendor_injection": {
+          "n": 227,
+          "detected": 227,
+          "recall": 1.0
+        },
+        "T2_invoice_cycling_row": {
+          "n": 360,
+          "detected": 22,
+          "recall": 0.06111111111111111
+        },
+        "T3_payment_term_manip": {
+          "n": 142,
+          "detected": 2,
+          "recall": 0.014084507042253521
+        },
+        "T4_shell_supplier_ring": {
+          "n": 186,
+          "detected": 186,
+          "recall": 1.0
+        },
+        "T5_wire_redirection": {
+          "n": 189,
+          "detected": 6,
+          "recall": 0.031746031746031744
+        },
+        "T2_invoice_cycling_event": {
+          "n": 180,
+          "detected": 11,
+          "recall": 0.06111111111111111
+        }
+      }
+    }
+  },
+  "n_train": 414204,
+  "n_val": 88758,
+  "n_test": 88759,
+  "config": {
+    "seed": 42,
+    "train_frac": 0.7,
+    "val_frac": 0.15,
+    "device": "mps",
+    "hidden_dim": 64,
+    "emb_dim": 64,
+    "dropout": 0.5,
+    "lr": 0.001,
+    "weight_decay": 1e-05,
+    "epochs_max": 60,
+    "patience": 8,
+    "n_node_features": 8,
+    "n_edge_features": 2,
+    "n_model_params": 17793,
+    "graph_stats": {
+      "n_buyers": 41672,
+      "n_suppliers": 2739,
+      "n_nodes_total": 44411,
+      "train_unique_edges": 63724,
+      "val_unique_edges": 69213,
+      "test_unique_edges": 75011
+    },
+    "training_time_seconds": 1.88,
+    "history": [
+      {
+        "epoch": 1,
+        "train_loss": 528.53173828125,
+        "roc_auc": 0.34249413169574056,
+        "pr_auc": 0.00875141295424696,
+        "f1_best": 0.02355927674356462,
+        "recall_at_5pct_fpr": 0.0
+      },
+      {
+        "epoch": 2,
+        "train_loss": 497.6858825683594,
+        "roc_auc": 0.5666296857520375,
+        "pr_auc": 0.016609594624353317,
+        "f1_best": 0.044785668586052464,
+        "recall_at_5pct_fpr": 0.06805293005671077
+      },
+      {
+        "epoch": 3,
+        "train_loss": 358.17327880859375,
+        "roc_auc": 0.5534380449332125,
+        "pr_auc": 0.02178628818980416,
+        "f1_best": 0.04474002418379686,
+        "recall_at_5pct_fpr": 0.08412098298676748
+      },
+      {
+        "epoch": 4,
+        "train_loss": 296.4469299316406,
+        "roc_auc": 0.5644860141442838,
+        "pr_auc": 0.0266283550486213,
+        "f1_best": 0.05483207676490747,
+        "recall_at_5pct_fpr": 0.09735349716446125
+      },
+      {
+        "epoch": 5,
+        "train_loss": 376.06915283203125,
+        "roc_auc": 0.5815900140753083,
+        "pr_auc": 0.029294078264656513,
+        "f1_best": 0.06576035409421437,
+        "recall_at_5pct_fpr": 0.11909262759924386
+      },
+      {
+        "epoch": 6,
+        "train_loss": 320.3812561035156,
+        "roc_auc": 0.619519321755512,
+        "pr_auc": 0.03458542306773293,
+        "f1_best": 0.09312805107022155,
+        "recall_at_5pct_fpr": 0.1776937618147448
+      },
+      {
+        "epoch": 7,
+        "train_loss": 260.255859375,
+        "roc_auc": 0.6619048332410069,
+        "pr_auc": 0.036096707130616024,
+        "f1_best": 0.12755997659449972,
+        "recall_at_5pct_fpr": 0.2542533081285444
+      },
+      {
+        "epoch": 8,
+        "train_loss": 217.88414001464844,
+        "roc_auc": 0.6763364645325942,
+        "pr_auc": 0.06996076624184795,
+        "f1_best": 0.24256651017214398,
+        "recall_at_5pct_fpr": 0.3988657844990548
+      },
+      {
+        "epoch": 9,
+        "train_loss": 200.44700622558594,
+        "roc_auc": 0.6765685023483995,
+        "pr_auc": 0.10170472433895594,
+        "f1_best": 0.278016399843811,
+        "recall_at_5pct_fpr": 0.3998109640831758
+      },
+      {
+        "epoch": 10,
+        "train_loss": 248.41261291503906,
+        "roc_auc": 0.677201605619777,
+        "pr_auc": 0.10228348506494246,
+        "f1_best": 0.27361818894551154,
+        "recall_at_5pct_fpr": 0.3998109640831758
+      },
+      {
+        "epoch": 11,
+        "train_loss": 271.29620361328125,
+        "roc_auc": 0.674463915048078,
+        "pr_auc": 0.08629476846050065,
+        "f1_best": 0.2503467406380027,
+        "recall_at_5pct_fpr": 0.3998109640831758
+      },
+      {
+        "epoch": 12,
+        "train_loss": 265.5419921875,
+        "roc_auc": 0.6744046284700593,
+        "pr_auc": 0.08707629584985692,
+        "f1_best": 0.2499137038315499,
+        "recall_at_5pct_fpr": 0.3998109640831758
+      },
+      {
+        "epoch": 13,
+        "train_loss": 167.47898864746094,
+        "roc_auc": 0.6746409287547986,
+        "pr_auc": 0.09165174137057752,
+        "f1_best": 0.2558970693352395,
+        "recall_at_5pct_fpr": 0.3998109640831758
+      },
+      {
+        "epoch": 14,
+        "train_loss": 190.39410400390625,
+        "roc_auc": 0.674570320498865,
+        "pr_auc": 0.09295011698872688,
+        "f1_best": 0.2542236524537409,
+        "recall_at_5pct_fpr": 0.4007561436672968
+      },
+      {
+        "epoch": 15,
+        "train_loss": 150.0689697265625,
+        "roc_auc": 0.6741804797244431,
+        "pr_auc": 0.08623977437563693,
+        "f1_best": 0.24229543039319873,
+        "recall_at_5pct_fpr": 0.4017013232514178
+      },
+      {
+        "epoch": 16,
+        "train_loss": 206.0950469970703,
+        "roc_auc": 0.6734274776745779,
+        "pr_auc": 0.07647670059722625,
+        "f1_best": 0.22742254449571522,
+        "recall_at_5pct_fpr": 0.4017013232514178
+      },
+      {
+        "epoch": 17,
+        "train_loss": 181.5849609375,
+        "roc_auc": 0.672308970260792,
+        "pr_auc": 0.06561788456616881,
+        "f1_best": 0.20232558139534884,
+        "recall_at_5pct_fpr": 0.3960302457466919
+      },
+      {
+        "epoch": 18,
+        "train_loss": 178.97052001953125,
+        "roc_auc": 0.67101795948984,
+        "pr_auc": 0.052566980492507624,
+        "f1_best": 0.1668233082706767,
+        "recall_at_5pct_fpr": 0.3695652173913043
+      }
+    ],
+    "val_metrics_at_best": {
+      "roc_auc": 0.6772016325633227,
+      "pr_auc": 0.10228320067711859,
+      "f1_best": 0.27361818894551154,
+      "recall_at_5pct_fpr": 0.3998109640831758
+    },
+    "best_f1_threshold": 0.9999867677688599
+  },
+  "timestamp": "2026-07-07T20:56:15.034521+00:00"
+}

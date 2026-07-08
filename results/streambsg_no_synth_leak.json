@@ -1,0 +1,199 @@
+{
+  "method": "streambsg_no_synth_leak",
+  "note": "STREAM-BSG's classifier never sees the raw synth_* columns \u2014 only feat_* derived features. This ablation additionally drops the 5 feat_* that are derived from synth_payment_term_days or synth_supplier_bank, to bound the contribution of those synthetic input signals.",
+  "dropped_features": [
+    "feat_bank_change_on_this_row",
+    "feat_bank_change_recent",
+    "feat_payment_term_mean",
+    "feat_payment_term_std",
+    "feat_payment_term_zscore_current"
+  ],
+  "n_features_used": 44,
+  "n_features_dropped": 5,
+  "metrics": {
+    "roc_auc": 0.7905791211262203,
+    "pr_auc": 0.4266512494908422,
+    "f1_best": 0.5396201702685004,
+    "recall_at_5pct_fpr": 0.483695652173913
+  },
+  "operating_points": {
+    "f1_optimal": {
+      "threshold": 0.7224403619766235,
+      "aggregate": {
+        "recall": 0.3704710144927536,
+        "fpr": 7.985853630711312e-05,
+        "f1": 0.5381578947368421,
+        "precision": 0.9831730769230769
+      },
+      "per_topology": {
+        "T1_vendor_injection": {
+          "n": 227,
+          "detected": 227,
+          "recall": 1.0
+        },
+        "T2_invoice_cycling_row": {
+          "n": 360,
+          "detected": 0,
+          "recall": 0.0
+        },
+        "T2_invoice_cycling_event": {
+          "n": 180,
+          "detected": 0,
+          "recall": 0.0
+        },
+        "T3_payment_term_manip": {
+          "n": 142,
+          "detected": 0,
+          "recall": 0.0
+        },
+        "T4_shell_supplier_ring": {
+          "n": 186,
+          "detected": 181,
+          "recall": 0.9731182795698925
+        },
+        "T5_wire_redirection": {
+          "n": 189,
+          "detected": 1,
+          "recall": 0.005291005291005291
+        }
+      }
+    },
+    "fpr_5pct": {
+      "threshold": 0.1340099424123764,
+      "aggregate": {
+        "recall": 0.483695652173913,
+        "fpr": 0.0499115851919457,
+        "f1": 0.17761516713786793,
+        "precision": 0.10877979221837442
+      },
+      "per_topology": {
+        "T1_vendor_injection": {
+          "n": 227,
+          "detected": 227,
+          "recall": 1.0
+        },
+        "T2_invoice_cycling_row": {
+          "n": 360,
+          "detected": 31,
+          "recall": 0.08611111111111111
+        },
+        "T2_invoice_cycling_event": {
+          "n": 180,
+          "detected": 27,
+          "recall": 0.15
+        },
+        "T3_payment_term_manip": {
+          "n": 142,
+          "detected": 14,
+          "recall": 0.09859154929577464
+        },
+        "T4_shell_supplier_ring": {
+          "n": 186,
+          "detected": 186,
+          "recall": 1.0
+        },
+        "T5_wire_redirection": {
+          "n": 189,
+          "detected": 76,
+          "recall": 0.4021164021164021
+        }
+      }
+    }
+  },
+  "n_train": 414204,
+  "n_test": 88759,
+  "config": {
+    "seed": 42,
+    "train_frac": 0.7,
+    "val_frac": 0.15,
+    "xgb_params": {
+      "objective": "binary:logistic",
+      "base_score": null,
+      "booster": null,
+      "callbacks": null,
+      "colsample_bylevel": null,
+      "colsample_bynode": null,
+      "colsample_bytree": 0.8,
+      "device": null,
+      "early_stopping_rounds": null,
+      "enable_categorical": false,
+      "eval_metric": "aucpr",
+      "feature_types": null,
+      "feature_weights": null,
+      "gamma": null,
+      "grow_policy": null,
+      "importance_type": null,
+      "interaction_constraints": null,
+      "learning_rate": 0.08,
+      "max_bin": null,
+      "max_cat_threshold": null,
+      "max_cat_to_onehot": null,
+      "max_delta_step": null,
+      "max_depth": 6,
+      "max_leaves": null,
+      "min_child_weight": null,
+      "missing": NaN,
+      "monotone_constraints": null,
+      "multi_strategy": null,
+      "n_estimators": 400,
+      "n_jobs": -1,
+      "num_parallel_tree": null,
+      "random_state": 42,
+      "reg_alpha": null,
+      "reg_lambda": null,
+      "sampling_method": null,
+      "scale_pos_weight": 83.13650213284582,
+      "subsample": 0.8,
+      "tree_method": "hist",
+      "validate_parameters": null,
+      "verbosity": null
+    },
+    "feature_cols": [
+      "feat_amount_above_p95",
+      "feat_amount_p95_history",
+      "feat_buyer_1hop_supplier_count",
+      "feat_buyer_2hop_supplier_age_min",
+      "feat_buyer_2hop_supplier_count",
+      "feat_buyer_age_days",
+      "feat_buyer_amount_std",
+      "feat_buyer_attribute_stability",
+      "feat_buyer_avg_amount",
+      "feat_buyer_avg_supplier_age",
+      "feat_buyer_first_seen_recency",
+      "feat_buyer_supplier_age_min",
+      "feat_buyer_supplier_age_std",
+      "feat_buyer_total_volume_30d",
+      "feat_buyer_tx_count_30d",
+      "feat_buyer_unique_suppliers",
+      "feat_days_since_last_tx",
+      "feat_duplicate_invoice_count_in_window",
+      "feat_edge_age_days",
+      "feat_edge_amount_std",
+      "feat_edge_amount_zscore_current",
+      "feat_edge_avg_amount",
+      "feat_edge_total_volume",
+      "feat_edge_tx_count",
+      "feat_has_cycle_2hop",
+      "feat_invoice_amount_collision_in_window",
+      "feat_max_path_length_2hop",
+      "feat_ring_detection_score",
+      "feat_shell_supplier_density",
+      "feat_subgraph_amount_concentration",
+      "feat_subgraph_attribute_homogeneity",
+      "feat_subgraph_density",
+      "feat_subgraph_volume_velocity",
+      "feat_supplier_age_days",
+      "feat_supplier_amount_std",
+      "feat_supplier_attr_change_on_this_row",
+      "feat_supplier_attribute_change_count",
+      "feat_supplier_attribute_change_recent",
+      "feat_supplier_attribute_stability",
+      "feat_supplier_avg_amount",
+      "feat_supplier_total_volume_30d",
+      "feat_supplier_tx_count_30d",
+      "feat_supplier_unique_buyers",
+      "feat_tx_cadence_score"
+    ]
+  },
+  "timestamp": "2026-07-07T21:23:58.162740+00:00"
+}

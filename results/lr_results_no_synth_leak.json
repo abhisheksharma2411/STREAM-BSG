@@ -1,0 +1,114 @@
+{
+  "method": "lr_no_synth_leak",
+  "excluded_columns": [
+    "synth_payment_term_days",
+    "synth_supplier_bank"
+  ],
+  "metrics": {
+    "roc_auc": 0.5978894478021956,
+    "pr_auc": 0.030416234980012263,
+    "f1_best": 0.08498896247240618,
+    "recall_at_5pct_fpr": 0.1956521739130435
+  },
+  "latency_ms": {
+    "p50": null,
+    "p95": null,
+    "p99": null
+  },
+  "operating_points": {
+    "f1_optimal": {
+      "threshold": 0.7286484982087249,
+      "aggregate": {
+        "recall": 0.14130434782608695,
+        "fpr": 0.028395413838343507,
+        "f1": 0.08322219258468924,
+        "precision": 0.05897920604914934
+      },
+      "per_topology": {
+        "T1_vendor_injection": {
+          "n": 227,
+          "detected": 31,
+          "recall": 0.13656387665198239
+        },
+        "T2_invoice_cycling_row": {
+          "n": 360,
+          "detected": 4,
+          "recall": 0.011111111111111112
+        },
+        "T2_invoice_cycling_event": {
+          "n": 180,
+          "detected": 2,
+          "recall": 0.011111111111111112
+        },
+        "T3_payment_term_manip": {
+          "n": 142,
+          "detected": 0,
+          "recall": 0.0
+        },
+        "T4_shell_supplier_ring": {
+          "n": 186,
+          "detected": 5,
+          "recall": 0.026881720430107527
+        },
+        "T5_wire_redirection": {
+          "n": 189,
+          "detected": 116,
+          "recall": 0.6137566137566137
+        }
+      }
+    },
+    "fpr_5pct": {
+      "threshold": 0.6447053964079308,
+      "aggregate": {
+        "recall": 0.1956521739130435,
+        "fpr": 0.04961496777137642,
+        "f1": 0.076203916034574,
+        "precision": 0.047316538882803946
+      },
+      "per_topology": {
+        "T1_vendor_injection": {
+          "n": 227,
+          "detected": 51,
+          "recall": 0.22466960352422907
+        },
+        "T2_invoice_cycling_row": {
+          "n": 360,
+          "detected": 16,
+          "recall": 0.044444444444444446
+        },
+        "T2_invoice_cycling_event": {
+          "n": 180,
+          "detected": 8,
+          "recall": 0.044444444444444446
+        },
+        "T3_payment_term_manip": {
+          "n": 142,
+          "detected": 2,
+          "recall": 0.014084507042253521
+        },
+        "T4_shell_supplier_ring": {
+          "n": 186,
+          "detected": 5,
+          "recall": 0.026881720430107527
+        },
+        "T5_wire_redirection": {
+          "n": 189,
+          "detected": 142,
+          "recall": 0.7513227513227513
+        }
+      }
+    }
+  },
+  "n_train": 414204,
+  "n_test": 88759,
+  "config": {
+    "seed": 42,
+    "train_frac": 0.7,
+    "val_frac": 0.15,
+    "n_numeric_features": 378,
+    "n_categorical_features": 12,
+    "class_weight": "balanced",
+    "max_iter": 1000
+  },
+  "timestamp": "2026-07-07T21:23:08.014142+00:00"
+}

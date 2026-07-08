@@ -1,0 +1,234 @@
+{
+  "method": "graphsage",
+  "metrics": {
+    "roc_auc": 0.6924358527626838,
+    "pr_auc": 0.29028560496661854,
+    "f1_best": 0.3539253539253539,
+    "recall_at_5pct_fpr": 0.40217391304347827
+  },
+  "latency_ms": {
+    "p50": 0.24850000045262277,
+    "p95": 0.470883306115865,
+    "p99": 0.7461360775050705
+  },
+  "operating_points": {
+    "f1_optimal": {
+      "threshold": 0.9998762607574463,
+      "threshold_source": "best F1 on validation set",
+      "aggregate": {
+        "recall": 0.26811594202898553,
+        "fpr": 0.003764759568763904,
+        "f1": 0.3421965317919075,
+        "precision": 0.4728434504792332
+      },
+      "per_topology": {
+        "T1_vendor_injection": {
+          "n": 227,
+          "detected": 161,
+          "recall": 0.7092511013215859
+        },
+        "T2_invoice_cycling_row": {
+          "n": 360,
+          "detected": 0,
+          "recall": 0.0
+        },
+        "T3_payment_term_manip": {
+          "n": 142,
+          "detected": 0,
+          "recall": 0.0
+        },
+        "T4_shell_supplier_ring": {
+          "n": 186,
+          "detected": 135,
+          "recall": 0.7258064516129032
+        },
+        "T5_wire_redirection": {
+          "n": 189,
+          "detected": 0,
+          "recall": 0.0
+        },
+        "T2_invoice_cycling_event": {
+          "n": 180,
+          "detected": 0,
+          "recall": 0.0
+        }
+      }
+    },
+    "fpr_5pct": {
+      "threshold": 0.00566801568493247,
+      "threshold_source": "largest threshold with test FPR <= 5%",
+      "aggregate": {
+        "recall": 0.40217391304347827,
+        "fpr": 0.04999144372825281,
+        "f1": 0.14974704890387858,
+        "precision": 0.0920016576875259
+      },
+      "per_topology": {
+        "T1_vendor_injection": {
+          "n": 227,
+          "detected": 227,
+          "recall": 1.0
+        },
+        "T2_invoice_cycling_row": {
+          "n": 360,
+          "detected": 22,
+          "recall": 0.06111111111111111
+        },
+        "T3_payment_term_manip": {
+          "n": 142,
+          "detected": 4,
+          "recall": 0.028169014084507043
+        },
+        "T4_shell_supplier_ring": {
+          "n": 186,
+          "detected": 185,
+          "recall": 0.9946236559139785
+        },
+        "T5_wire_redirection": {
+          "n": 189,
+          "detected": 6,
+          "recall": 0.031746031746031744
+        },
+        "T2_invoice_cycling_event": {
+          "n": 180,
+          "detected": 11,
+          "recall": 0.06111111111111111
+        }
+      }
+    }
+  },
+  "n_train": 414204,
+  "n_val": 88758,
+  "n_test": 88759,
+  "config": {
+    "seed": 1729,
+    "train_frac": 0.7,
+    "val_frac": 0.15,
+    "device": "mps",
+    "hidden_dim": 64,
+    "emb_dim": 64,
+    "dropout": 0.5,
+    "lr": 0.001,
+    "weight_decay": 1e-05,
+    "epochs_max": 60,
+    "patience": 8,
+    "n_node_features": 8,
+    "n_edge_features": 2,
+    "n_model_params": 17793,
+    "graph_stats": {
+      "n_buyers": 41672,
+      "n_suppliers": 2739,
+      "n_nodes_total": 44411,
+      "train_unique_edges": 63724,
+      "val_unique_edges": 69213,
+      "test_unique_edges": 75011
+    },
+    "training_time_seconds": 1.34,
+    "history": [
+      {
+        "epoch": 1,
+        "train_loss": 317.61883544921875,
+        "roc_auc": 0.49652093082406284,
+        "pr_auc": 0.011827086333287213,
+        "f1_best": 0.023878211132341738,
+        "recall_at_5pct_fpr": 0.0
+      },
+      {
+        "epoch": 2,
+        "train_loss": 256.52239990234375,
+        "roc_auc": 0.658209822323482,
+        "pr_auc": 0.06401102315339313,
+        "f1_best": 0.19106699751861042,
+        "recall_at_5pct_fpr": 0.3638941398865784
+      },
+      {
+        "epoch": 3,
+        "train_loss": 230.60511779785156,
+        "roc_auc": 0.6771990513716419,
+        "pr_auc": 0.2809317272488069,
+        "f1_best": 0.3642611683848797,
+        "recall_at_5pct_fpr": 0.39792060491493386
+      },
+      {
+        "epoch": 4,
+        "train_loss": 171.7364044189453,
+        "roc_auc": 0.6776109481325967,
+        "pr_auc": 0.31492531347595837,
+        "f1_best": 0.3875,
+        "recall_at_5pct_fpr": 0.3998109640831758
+      },
+      {
+        "epoch": 5,
+        "train_loss": 342.0729064941406,
+        "roc_auc": 0.6704017444329247,
+        "pr_auc": 0.0945103840867874,
+        "f1_best": 0.25803825803825803,
+        "recall_at_5pct_fpr": 0.3998109640831758
+      },
+      {
+        "epoch": 6,
+        "train_loss": 229.4872283935547,
+        "roc_auc": 0.6199448250070592,
+        "pr_auc": 0.01844491092995014,
+        "f1_best": 0.04391754257312801,
+        "recall_at_5pct_fpr": 0.0
+      },
+      {
+        "epoch": 7,
+        "train_loss": 166.9502410888672,
+        "roc_auc": 0.6016266788523343,
+        "pr_auc": 0.016563725672621883,
+        "f1_best": 0.035992247823545695,
+        "recall_at_5pct_fpr": 0.0
+      },
+      {
+        "epoch": 8,
+        "train_loss": 172.45289611816406,
+        "roc_auc": 0.5721653773281918,
+        "pr_auc": 0.014601319388606517,
+        "f1_best": 0.030038668301424126,
+        "recall_at_5pct_fpr": 0.0
+      },
+      {
+        "epoch": 9,
+        "train_loss": 210.08766174316406,
+        "roc_auc": 0.5386276358870785,
+        "pr_auc": 0.013055877312198915,
+        "f1_best": 0.02602500247385955,
+        "recall_at_5pct_fpr": 0.0
+      },
+      {
+        "epoch": 10,
+        "train_loss": 160.2245635986328,
+        "roc_auc": 0.50249173910888,
+        "pr_auc": 0.011979717263686348,
+        "f1_best": 0.02389182718733587,
+        "recall_at_5pct_fpr": 0.0
+      },
+      {
+        "epoch": 11,
+        "train_loss": 103.60303497314453,
+        "roc_auc": 0.5020245541920924,
+        "pr_auc": 0.011973189559685545,
+        "f1_best": 0.023850126680958875,
+        "recall_at_5pct_fpr": 0.0
+      },
+      {
+        "epoch": 12,
+        "train_loss": 194.31634521484375,
+        "roc_auc": 0.5024971870938261,
+        "pr_auc": 0.011982355978205732,
+        "f1_best": 0.023862462790838954,
+        "recall_at_5pct_fpr": 0.0
+      }
+    ],
+    "val_metrics_at_best": {
+      "roc_auc": 0.6776109427438874,
+      "pr_auc": 0.3149255204041869,
+      "f1_best": 0.3875,
+      "recall_at_5pct_fpr": 0.3998109640831758
+    },
+    "best_f1_threshold": 0.9998762607574463
+  },
+  "timestamp": "2026-07-07T22:24:20.915429+00:00"
+}

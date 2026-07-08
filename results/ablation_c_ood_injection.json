@@ -1,0 +1,144 @@
+{
+  "method": "streambsg_ablation_c_ood_injection",
+  "ablation": {
+    "description": "STREAM-BSG's paper-canonical model (49 features, seed=42, trained on ID) applied WITHOUT RETRAINING to the OOD-injection test split. Tests generalization to unseen structural attack variants.",
+    "ood_variants": {
+      "T1": "2-buyer shell (was 1-buyer)",
+      "T2": "14-day dup window, 5% amount tolerance (was 300s, 1%)",
+      "T3": "3-tx gradient over ~20d/~10d/~1d (was single-row abrupt shift)",
+      "T4": "ring size 4 (was 3)",
+      "T5": "bank transit across 2 tx (was single-row abrupt change)"
+    },
+    "protocol": "Model retrained on ID train split from data/ieee_cis_with_features.parquet with seed=42 canonical hyperparameters; frozen; scored against data/ood_structural/features_ood.parquet test split. No retraining, no threshold recalibration on OOD training data."
+  },
+  "metrics_ood": {
+    "roc_auc": 0.7571595832280572,
+    "pr_auc": 0.45773838384618654,
+    "f1_best": 0.5633928571428571,
+    "recall_at_5pct_fpr": 0.5073529411764706
+  },
+  "metrics_id_sanity_check": {
+    "roc_auc": 0.8884569332255325,
+    "pr_auc": 0.677754173443885,
+    "f1_best": 0.7767416346681294,
+    "recall_at_5pct_fpr": 0.7110507246376812
+  },
+  "metrics_id_paper_headline": {
+    "roc_auc": 0.8884569332255325,
+    "pr_auc": 0.677754173443885,
+    "f1_best": 0.7767416346681294,
+    "recall_at_5pct_fpr": 0.7110507246376812
+  },
+  "latency_ms": {
+    "p50": 0.1967919961316511,
+    "p95": 0.23179200070444494,
+    "p99": 0.47688949824077814
+  },
+  "operating_points_ood": {
+    "f1_optimal_id_val": {
+      "threshold": 0.7617929577827454,
+      "threshold_source": "F1-optimal on ID VAL scores (deployed-model threshold)",
+      "aggregate": {
+        "recall": 0.34558823529411764,
+        "fpr": 0.0001145961060243173,
+        "f1": 0.5111220958971824,
+        "precision": 0.9810246679316889
+      },
+      "per_topology": {
+        "T1_vendor_injection": {
+          "n": 227,
+          "detected": 32,
+          "recall": 0.14096916299559473
+        },
+        "T2_invoice_cycling_row": {
+          "n": 397,
+          "detected": 0,
+          "recall": 0.0
+        },
+        "T2_invoice_cycling_event": {
+          "n": 217,
+          "detected": 0,
+          "recall": 0.0
+        },
+        "T3_payment_term_manip": {
+          "n": 356,
+          "detected": 184,
+          "recall": 0.5168539325842697
+        },
+        "T4_shell_supplier_ring": {
+          "n": 184,
+          "detected": 181,
+          "recall": 0.9836956521739131
+        },
+        "T5_wire_redirection": {
+          "n": 332,
+          "detected": 120,
+          "recall": 0.3614457831325301
+        }
+      }
+    },
+    "fpr_5pct_ood_test": {
+      "threshold": 0.07444233447313309,
+      "threshold_source": "5% FPR recalibrated on OOD test scores (defender-adjusts scenario)",
+      "aggregate": {
+        "recall": 0.5073529411764706,
+        "fpr": 0.049264865979854,
+        "f1": 0.23161428135489773,
+        "precision": 0.15005931198102015
+      },
+      "per_topology": {
+        "T1_vendor_injection": {
+          "n": 227,
+          "detected": 120,
+          "recall": 0.5286343612334802
+        },
+        "T2_invoice_cycling_row": {
+          "n": 397,
+          "detected": 7,
+          "recall": 0.017632241813602016
+        },
+        "T2_invoice_cycling_event": {
+          "n": 217,
+          "detected": 7,
+          "recall": 0.03225806451612903
+        },
+        "T3_payment_term_manip": {
+          "n": 356,
+          "detected": 208,
+          "recall": 0.5842696629213483
+        },
+        "T4_shell_supplier_ring": {
+          "n": 184,
+          "detected": 183,
+          "recall": 0.9945652173913043
+        },
+        "T5_wire_redirection": {
+          "n": 332,
+          "detected": 241,
+          "recall": 0.7259036144578314
+        }
+      }
+    }
+  },
+  "n_train_id": 414204,
+  "n_test_ood": 88759,
+  "n_test_ood_pos": 1496,
+  "config": {
+    "seed": 42,
+    "xgb_params": {
+      "n_estimators": 400,
+      "max_depth": 6,
+      "learning_rate": 0.08,
+      "subsample": 0.8,
+      "colsample_bytree": 0.8,
+      "tree_method": "hist",
+      "eval_metric": "aucpr",
+      "scale_pos_weight": 83.13650213284582,
+      "random_state": 42,
+      "n_jobs": -1
+    },
+    "id_parquet": "data/ieee_cis_with_features.parquet",
+    "ood_parquet": "data/ood_structural/features_ood.parquet"
+  },
+  "timestamp": "2026-07-08T01:01:33.672932+00:00"
+}

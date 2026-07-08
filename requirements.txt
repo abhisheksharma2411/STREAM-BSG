@@ -1,23 +1,26 @@
 # STREAM-BSG dependencies
-# Tested with Python 3.10+
+# Tested with Python 3.13. Versions pinned for numeric reproducibility of the
+# camera-ready paper metrics; see results/all_experiments_summary.md.
 
-# Core data
-numpy>=1.24
-pandas>=2.0
-pyarrow>=14.0       # parquet I/O
+# Core data — pinned
+numpy==2.5.1
+pandas==3.0.3
+pyarrow==24.0.0
+
+# Machine learning (baselines + STREAM-BSG classifier) — pinned
+scikit-learn==1.8.0
+xgboost==3.2.0
+
+# Graph neural network baseline (GraphSAGE)
+torch>=2.0
+torch-geometric>=2.4
 
 # Visualization (figure generation)
 matplotlib>=3.7
 networkx>=3.0
 
-# Machine learning (baselines)
-scikit-learn>=1.3
-xgboost>=2.0
-
-# Graph neural network baseline (GraphSAGE)
-# Uncomment when implementing the GraphSAGE baseline:
-# torch>=2.0
-# torch-geometric>=2.4
+# Optional — for downloading the IEEE-CIS dataset from Kaggle
+kaggle
 
 # Streaming and state store (optional — only needed for the streaming deployment example)
 # Uncomment when implementing the streaming pipeline:

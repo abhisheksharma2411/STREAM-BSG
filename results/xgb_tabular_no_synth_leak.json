@@ -1,0 +1,154 @@
+{
+  "method": "xgb_tabular_no_synth_leak",
+  "excluded_columns": [
+    "synth_payment_term_days",
+    "synth_supplier_bank"
+  ],
+  "metrics": {
+    "roc_auc": 0.6299034670674475,
+    "pr_auc": 0.08020768060997793,
+    "f1_best": 0.15887850467289721,
+    "recall_at_5pct_fpr": 0.24003623188405798
+  },
+  "latency_ms": {
+    "p50": 0.18637499306350946,
+    "p95": 0.22337499831337482,
+    "p99": 0.42071277915965727
+  },
+  "operating_points": {
+    "f1_optimal": {
+      "threshold": 0.6750831604003906,
+      "aggregate": {
+        "recall": 0.1358695652173913,
+        "fpr": 0.007552335862186983,
+        "f1": 0.15657620041753653,
+        "precision": 0.18472906403940886
+      },
+      "per_topology": {
+        "T1_vendor_injection": {
+          "n": 227,
+          "detected": 38,
+          "recall": 0.16740088105726872
+        },
+        "T2_invoice_cycling_row": {
+          "n": 360,
+          "detected": 2,
+          "recall": 0.005555555555555556
+        },
+        "T2_invoice_cycling_event": {
+          "n": 180,
+          "detected": 1,
+          "recall": 0.005555555555555556
+        },
+        "T3_payment_term_manip": {
+          "n": 142,
+          "detected": 1,
+          "recall": 0.007042253521126761
+        },
+        "T4_shell_supplier_ring": {
+          "n": 186,
+          "detected": 3,
+          "recall": 0.016129032258064516
+        },
+        "T5_wire_redirection": {
+          "n": 189,
+          "detected": 106,
+          "recall": 0.5608465608465608
+        }
+      }
+    },
+    "fpr_5pct": {
+      "threshold": 0.4696871042251587,
+      "aggregate": {
+        "recall": 0.24003623188405798,
+        "fpr": 0.04986595174262735,
+        "f1": 0.09233449477351917,
+        "precision": 0.05716134598792062
+      },
+      "per_topology": {
+        "T1_vendor_injection": {
+          "n": 227,
+          "detected": 93,
+          "recall": 0.40969162995594716
+        },
+        "T2_invoice_cycling_row": {
+          "n": 360,
+          "detected": 5,
+          "recall": 0.013888888888888888
+        },
+        "T2_invoice_cycling_event": {
+          "n": 180,
+          "detected": 3,
+          "recall": 0.016666666666666666
+        },
+        "T3_payment_term_manip": {
+          "n": 142,
+          "detected": 6,
+          "recall": 0.04225352112676056
+        },
+        "T4_shell_supplier_ring": {
+          "n": 186,
+          "detected": 9,
+          "recall": 0.04838709677419355
+        },
+        "T5_wire_redirection": {
+          "n": 189,
+          "detected": 152,
+          "recall": 0.8042328042328042
+        }
+      }
+    }
+  },
+  "n_train": 414204,
+  "n_test": 88759,
+  "config": {
+    "seed": 42,
+    "train_frac": 0.7,
+    "val_frac": 0.15,
+    "n_numeric_features": 378,
+    "n_categorical_features": 12,
+    "xgb_params": {
+      "objective": "binary:logistic",
+      "base_score": null,
+      "booster": null,
+      "callbacks": null,
+      "colsample_bylevel": null,
+      "colsample_bynode": null,
+      "colsample_bytree": 0.8,
+      "device": null,
+      "early_stopping_rounds": null,
+      "enable_categorical": false,
+      "eval_metric": "aucpr",
+      "feature_types": null,
+      "feature_weights": null,
+      "gamma": null,
+      "grow_policy": null,
+      "importance_type": null,
+      "interaction_constraints": null,
+      "learning_rate": 0.1,
+      "max_bin": null,
+      "max_cat_threshold": null,
+      "max_cat_to_onehot": null,
+      "max_delta_step": null,
+      "max_depth": 6,
+      "max_leaves": null,
+      "min_child_weight": null,
+      "missing": NaN,
+      "monotone_constraints": null,
+      "multi_strategy": null,
+      "n_estimators": 300,
+      "n_jobs": -1,
+      "num_parallel_tree": null,
+      "random_state": 42,
+      "reg_alpha": null,
+      "reg_lambda": null,
+      "sampling_method": null,
+      "scale_pos_weight": 83.13650213284582,
+      "subsample": 0.8,
+      "tree_method": "hist",
+      "validate_parameters": null,
+      "verbosity": null
+    }
+  },
+  "timestamp": "2026-07-07T21:23:51.843690+00:00"
+}
