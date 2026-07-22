@@ -93,7 +93,7 @@ This repository accompanies the InC4 2026 submission. Items marked WIP will be c
 - [x] Synthetic B2B fraud injection script
 - [x] Figure generation (taxonomy, architecture)
 - [ ] Baseline implementations (Logistic Regression, XGBoost-tabular, GraphSAGE)
-- [ ] STREAM-BSG 47-feature pipeline
+- [ ] STREAM-BSG 49-feature pipeline
 - [ ] End-to-end evaluation harness
 - [ ] Streaming deployment example (Kafka + Flink + Redis)
 - [ ] Native B2B benchmark dataset (extended version)
@@ -107,8 +107,7 @@ If you use this code or methodology, please cite:
   title     = {STREAM-BSG: A Streaming Graph Architecture for Real-Time Fraud
                Detection in B2B Payment Networks},
   author    = {Sharma, Abhishek},
-  booktitle = {IEEE International Conference on Intelligent Communication and
-               Computational Techniques (InC4)},
+  booktitle = {IEEE International Conference on Contemporary Computing and Communications (InC4)},
   year      = {2026},
   note      = {To appear}
 }
