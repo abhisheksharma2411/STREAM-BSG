@@ -2,7 +2,7 @@
 classifier.py
 =============
 
-STREAM-BSG classifier — XGBoost on the 47 graph features produced by
+STREAM-BSG classifier — XGBoost on the 49 graph features produced by
 ``code/stream_bsg/features.py``. Reports the standard schema metrics plus
 two STREAM-BSG-specific diagnostics:
 
@@ -307,7 +307,7 @@ def train_and_evaluate(
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="STREAM-BSG XGBoost classifier on 47 graph features")
+    parser = argparse.ArgumentParser(description="STREAM-BSG XGBoost classifier on 49 graph features")
     parser.add_argument("--input", required=True, type=str)
     parser.add_argument("--output", required=True, type=str)
     parser.add_argument("--seed", type=int, default=42)

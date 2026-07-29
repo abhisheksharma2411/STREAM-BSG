@@ -2,10 +2,10 @@
 features.py
 ===========
 
-STREAM-BSG 47-feature extractor.
+STREAM-BSG 49-feature extractor.
 
 Single chronological pass over a labeled IEEE-CIS-shaped dataframe. For each
-transaction, computes the 47 buyer / supplier / edge / subgraph features
+transaction, computes the 49 buyer / supplier / edge / subgraph features
 defined in CLAUDE.md using ONLY transactions with an earlier TransactionDT
 (no future leakage), then updates streaming state with the current row.
 
@@ -59,7 +59,7 @@ FEATURE_COLS: list[str] = [
     "feat_buyer_attribute_stability",
     "feat_supplier_attribute_stability",
     "feat_buyer_first_seen_recency",
-    # --- 18 EDGE features --------------------------------------------------
+    # --- 18 edge + 2 current-row change-detection features ----------------
     "feat_edge_age_days",
     "feat_edge_tx_count",
     "feat_edge_total_volume",
@@ -239,7 +239,7 @@ def _percentile(values: deque, q: float) -> float:
 # ---------------------------------------------------------------------------
 
 def compute_features(df: pd.DataFrame, window_days: int = 90) -> pd.DataFrame:
-    """Single chronological pass; computes 47 streaming features per row.
+    """Single chronological pass; computes 49 streaming features per row.
 
     For each row, features are derived from state that includes ONLY
     transactions with strictly earlier TransactionDT (rows with equal
@@ -635,7 +635,7 @@ def _print_feature_summary(df: pd.DataFrame) -> None:
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="STREAM-BSG 47-feature extractor")
+    parser = argparse.ArgumentParser(description="STREAM-BSG 49-feature extractor")
     parser.add_argument("--input", required=True, type=Path)
     parser.add_argument("--output", required=True, type=Path)
     parser.add_argument("--window-days", type=int, default=90)
