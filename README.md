@@ -103,8 +103,9 @@ pip install -r requirements.txt
 The IEEE-CIS Fraud Detection dataset is **not** redistributed here — download `train_transaction.csv` and `train_identity.csv` from Kaggle (<https://www.kaggle.com/c/ieee-fraud-detection/data>) into `data/`, then run `bash reproduce.sh`.
  
 ## Dataset
- 
-A standalone, DOI-citable synthetic B2B payment-fraud dataset (**SynB2B-Fraud**), generated with the same topology rules, is being released separately on Zenodo — a link will be added here when available.
+
+A standalone, DOI-citable synthetic B2B payment-fraud dataset (**SynB2B-Fraud**) is available on Zenodo:
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21668281.svg)](https://doi.org/10.5281/zenodo.21668281)
  
 ## Roadmap
  
