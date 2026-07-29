@@ -1,0 +1,37 @@
+cff-version: 1.2.0
+message: "If you use this software, dataset, or methodology, please cite the paper below."
+title: "STREAM-BSG: A Streaming Graph Architecture for Real-Time Fraud Detection in B2B Payment Networks"
+type: software
+authors:
+  - family-names: Sharma
+    given-names: Abhishek
+    orcid: "https://orcid.org/0009-0007-1103-2103"
+    email: abhicse24@gmail.com
+repository-code: "https://github.com/abhisheksharma2411/STREAM-BSG"
+url: "https://github.com/abhisheksharma2411/STREAM-BSG"
+license: MIT
+keywords:
+  - fraud detection
+  - B2B payments
+  - streaming graph
+  - real-time machine learning
+  - graph features
+  - XGBoost
+preferred-citation:
+  type: conference-paper
+  title: "STREAM-BSG: A Streaming Graph Architecture for Real-Time Fraud Detection in B2B Payment Networks"
+  authors:
+    - family-names: Sharma
+      given-names: Abhishek
+      orcid: "https://orcid.org/0009-0007-1103-2103"
+  collection-title: "Proceedings of the 2026 IEEE International Conference on Contemporary Computing and Communications (InC4)"
+  conference:
+    name: "2026 IEEE International Conference on Contemporary Computing and Communications (InC4)"
+    city: "Bengaluru"
+    country: "IN"
+    date-start: "2026-08-07"
+    date-end: "2026-08-08"
+  publisher:
+    name: "IEEE"
+  year: 2026
+  notes: "To appear. Paper ID 3092. Add DOI/ISBN and pages once available in IEEE Xplore."
