@@ -4,7 +4,7 @@
  
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
  
-This repository contains the companion code, figures, and reproduction scripts for the STREAM-BSG paper, accepted at the **2026 IEEE International Conference on Contemporary Computing and Communications (InC4)** (Paper ID 3092; to appear in IEEE Xplore).
+This repository contains the companion code, figures, datasets, and full reproduction pipeline for the STREAM-BSG paper, accepted at the **2026 IEEE International Conference on Contemporary Computing and Communications (InC4)** (Paper ID 3092; to appear in IEEE Xplore).
  
 ## What is STREAM-BSG?
  
@@ -15,7 +15,7 @@ STREAM-BSG (Streaming Buyer–Supplier Graph) is a streaming graph architecture 
 3. **Payment-Term Manipulation (T3)** — an abrupt shift in payment terms on an established edge.
 4. **Shell-Supplier Ring (T4)** — a buyer connected only to several coordinated, low-history suppliers.
 5. **Wire Redirection / BEC (T5)** — a bank/remittance-attribute change followed by an unusually high-value payment.
-The architecture maintains an incremental buyer–supplier graph in a streaming state store (Redis) and computes a **49-dimensional feature vector** online — **15 node + 18 edge + 14 subgraph + 2 current-row change-detection features** — before classification with XGBoost.
+The architecture maintains an incremental buyer–supplier graph in a streaming state store (Redis) and computes a **49-dimensional feature vector** online — **15 node + 18 edge + 14 subgraph + 2 current-row change-detection features** — before classification with XGBoost. The complete per-feature definitions are in [`paper/feature_table.md`](paper/feature_table.md); the formal topology rules are in [`paper/topology_definitions.md`](paper/topology_definitions.md).
  
 **On latency (stated precisely):** the reported **0.37 ms p99** is *measured* per-row model-inference latency. The **sub-100 ms p99** figure is an *architectural budget* across the full pipeline (ingest → state → features → inference → decision), **not** a measured end-to-end benchmark; a full Kafka/Flink/Redis deployment benchmark is future work.
  
@@ -24,17 +24,37 @@ The architecture maintains an incremental buyer–supplier graph in a streaming 
 ```
 STREAM-BSG/
 ├── code/
-│   ├── synth/                  # Synthetic B2B fraud injection on IEEE-CIS   [runnable]
-│   │   └── synth_b2b_injection.py
-│   ├── figures/                # Figure generation scripts                   [runnable]
-│   │   ├── fig1_taxonomy.py
-│   │   └── fig2_architecture.py
-│   ├── stream_bsg/             # 49-feature incremental pipeline + XGBoost    [in progress]
-│   ├── baselines/              # Logistic Regression, XGBoost-tabular, GraphSAGE [in progress]
-│   └── eval/                   # Evaluation harness (Tables II–VI)            [in progress]
-├── figures/                    # Pre-generated figures (PDF + PNG)
-├── data/                       # Data placement instructions (IEEE-CIS not redistributed)
-├── paper/                      # Paper artifacts
+│   ├── synth/
+│   │   ├── synth_b2b_injection.py       # Inject the 5 B2B topologies into IEEE-CIS   [runnable]
+│   │   └── synth_b2b_injection_ood.py   # Out-of-distribution attack variants (Abl. C) [runnable]
+│   ├── figures/
+│   │   ├── fig1_taxonomy.py             # Taxonomy figure                             [runnable]
+│   │   └── fig2_architecture.py         # Architecture figure                         [runnable]
+│   ├── stream_bsg/
+│   │   ├── features.py                  # 49-feature streaming extractor              [runnable]
+│   │   └── classifier.py                # XGBoost + metrics + per-topology + latency   [runnable]
+│   └── baselines/
+│       ├── lr_baseline.py               # Logistic Regression                         [runnable]
+│       ├── xgb_tabular.py               # XGBoost on raw tabular features             [runnable]
+│       └── graphsage_baseline.py        # 2-layer heterogeneous GraphSAGE (PyG)        [runnable]
+├── results/                             # All committed result JSONs + summary tables
+│   ├── table_accuracy.csv               #   Table II
+│   ├── table_latency.csv                #   Table III
+│   ├── table_per_topology.csv           #   Table IV
+│   ├── graphsage_seed*.json             #   GraphSAGE seed-stability runs
+│   ├── seed_stability.json              #   STREAM-BSG seed-stability summary
+│   ├── *_no_synth_leak.json             #   Leakage ablation (Table V)
+│   ├── ablation_a_no_topology_feats.json, ablation_0p5pct/, ablation_c_ood_injection.json  # Table VI
+│   ├── leakage_analysis_report.md
+│   └── all_experiments_summary.md
+├── figures/                             # Pre-generated figures (PDF + PNG)
+├── data/                                # Data placement instructions (IEEE-CIS not redistributed)
+├── paper/
+│   ├── feature_table.md                 # Full 49-feature definitions
+│   ├── topology_definitions.md          # Formal T1–T5 firing rules
+│   └── README.md
+├── reproduce.sh                         # One-command end-to-end reproduction
+├── REPRODUCE.md                         # Step-by-step reproduction guide
 ├── CITATION.cff
 ├── requirements.txt
 ├── LICENSE
@@ -43,55 +63,58 @@ STREAM-BSG/
  
 ## Reproducibility
  
-**Runnable today:** the synthetic B2B fraud-injection script (`code/synth/`) and the figure-generation scripts (`code/figures/`).
+The full pipeline that regenerates the paper's results runs end to end. The quickest path:
  
-**Being finalized:** the full 49-feature pipeline (`code/stream_bsg/`), the baseline implementations (`code/baselines/`), and the evaluation harness (`code/eval/`) that regenerates the paper's Tables II–VI are being completed for the camera-ready and extended-journal versions.
+```bash
+pip install -r requirements.txt        # includes torch + torch-geometric for GraphSAGE
+bash reproduce.sh                       # see REPRODUCE.md for the step-by-step breakdown
+```
  
-Reported STREAM-BSG results were produced under pinned dependencies — `xgboost==3.2.0`, `scikit-learn==1.8.0` — and reproduce exactly (|Δ| = 0 across all four aggregate metrics and the top-20 feature-importance gains) under that environment.
+Or run the stages individually:
+ 
+```bash
+# 1. Inject the five B2B topologies into IEEE-CIS
+python3 code/synth/synth_b2b_injection.py --input data/train_transaction.csv \
+    --output data/ieee_cis_with_synthetic_b2b.parquet --fraud-rate 0.01
+# 2. Compute the 49 streaming features (single chronological pass, no future leakage)
+python3 code/stream_bsg/features.py --input data/ieee_cis_with_synthetic_b2b.parquet \
+    --output data/ieee_cis_with_features.parquet
+# 3. Train + score STREAM-BSG and the baselines
+python3 code/stream_bsg/classifier.py  ...    # -> results/streambsg_results.json
+python3 code/baselines/lr_baseline.py  ...    # -> results/lr_results.json
+python3 code/baselines/xgb_tabular.py  ...    # -> results/xgb_tabular_results.json
+python3 code/baselines/graphsage_baseline.py ...  # -> results/graphsage_results.json
+```
+ 
+Committed outputs in [`results/`](results/) map directly to the paper: **Table II** (accuracy) → `table_accuracy.csv`; **Table III** (latency) → `table_latency.csv`; **Table IV** (per-topology recall) → `table_per_topology.csv`; **Table V** (synthetic-attribute leakage) → `*_no_synth_leak.json` + `leakage_analysis_report.md`; **Table VI** (feature / prevalence / OOD ablations) → `ablation_*`; and the GraphSAGE seed-stability footnote → `graphsage_seed*.json` + `seed_stability.json`. A consolidated write-up is in [`results/all_experiments_summary.md`](results/all_experiments_summary.md).
+ 
+Results were produced under pinned dependencies (see `requirements.txt`, incl. `xgboost==3.2.0`, `scikit-learn==1.8.0`) and reproduce exactly (|Δ| = 0 across the four aggregate metrics and the top-20 feature-importance gains).
  
 ## Quick start
  
-### Prerequisites
-- Python 3.10+
-- pip
-### Setup
+**Prerequisites:** Python 3.10+, pip. GraphSAGE additionally needs `torch` + `torch-geometric` (in `requirements.txt`).
+ 
 ```bash
 git clone https://github.com/abhisheksharma2411/STREAM-BSG.git
 cd STREAM-BSG
 pip install -r requirements.txt
 ```
  
-### Reproduce the figures
-```bash
-cd code/figures
-python3 fig1_taxonomy.py
-python3 fig2_architecture.py
-```
-Output PDFs and PNGs are written to `figures/`.
- 
-### Run synthetic B2B fraud injection on IEEE-CIS
-1. Download the IEEE-CIS Fraud Detection dataset from Kaggle: <https://www.kaggle.com/c/ieee-fraud-detection/data> (requires a Kaggle account).
-2. Place `train_transaction.csv` and `train_identity.csv` in the `data/` directory.
-3. Run:
-```bash
-python3 code/synth/synth_b2b_injection.py \
-    --input data/train_transaction.csv \
-    --output data/ieee_cis_with_synthetic_b2b.parquet \
-    --fraud-rate 0.01
-```
-This produces a labeled Parquet file with two added columns: `fraud_injected` (binary) and `fraud_topology` (one of T1–T5, or NULL for non-injected rows).
+The IEEE-CIS Fraud Detection dataset is **not** redistributed here — download `train_transaction.csv` and `train_identity.csv` from Kaggle (<https://www.kaggle.com/c/ieee-fraud-detection/data>) into `data/`, then run `bash reproduce.sh`.
  
 ## Dataset
  
-The IEEE-CIS dataset is **not** redistributed here; download it directly from Kaggle under its original license. A standalone, DOI-citable synthetic B2B payment-fraud dataset (**SynB2B-Fraud**) generated with the same topology rules is being released separately on Zenodo — a link will be added here when available.
+A standalone, DOI-citable synthetic B2B payment-fraud dataset (**SynB2B-Fraud**), generated with the same topology rules, is being released separately on Zenodo — a link will be added here when available.
  
 ## Roadmap
  
-- [x] Synthetic B2B fraud injection script
+- [x] Synthetic B2B fraud injection (in-distribution + OOD variants)
 - [x] Figure generation (taxonomy, architecture)
-- [ ] Baseline implementations (Logistic Regression, XGBoost-tabular, GraphSAGE)
-- [ ] STREAM-BSG 49-feature pipeline
-- [ ] End-to-end evaluation harness (Tables II–VI)
+- [x] STREAM-BSG 49-feature streaming extractor + XGBoost classifier
+- [x] Baselines: Logistic Regression, XGBoost-tabular, GraphSAGE
+- [x] Ablation studies (leakage, feature, prevalence, OOD — Tables V & VI)
+- [x] Seed-stability experiments
+- [x] End-to-end reproduction script (`reproduce.sh` + `REPRODUCE.md`)
 - [ ] Streaming deployment example (Kafka + Flink + Redis)
 - [ ] Standalone SynB2B-Fraud dataset (Zenodo DOI)
 ## Citation
@@ -122,4 +145,3 @@ Abhishek Sharma — <abhicse24@gmail.com> · ORCID: [0009-0007-1103-2103](https:
 ---
  
 *The IEEE-CIS dataset is NOT redistributed in this repository. Users must download it directly from Kaggle under its original license terms.*
- 
