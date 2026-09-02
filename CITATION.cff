@@ -1,15 +1,19 @@
 cff-version: 1.2.0
 message: "If you use this software, dataset, or methodology, please cite the paper below."
 title: "STREAM-BSG: A Streaming Graph Architecture for Real-Time Fraud Detection in B2B Payment Networks"
+abstract: "STREAM-BSG maintains an incremental buyer-supplier graph in a streaming state store and computes a 49-dimensional feature vector online - 15 node, 18 edge, 14 subgraph, and 2 current-row change-detection features - before classification with XGBoost. It targets business-to-business payment fraud rather than the business-to-consumer card fraud most academic work addresses, and formalizes five fraud topologies documented in industry practice: vendor injection, invoice cycling, payment-term manipulation, shell-supplier rings, and wire redirection. This repository holds the companion code, figures, datasets, and full reproduction pipeline for the paper."
 type: software
 authors:
   - family-names: Sharma
     given-names: Abhishek
     orcid: "https://orcid.org/0009-0007-1103-2103"
     email: abhicse24@gmail.com
+    affiliation: "IEEE Senior Member"
+version: 1.0.1
+date-released: 2026-09-02
+license: MIT
 repository-code: "https://github.com/abhisheksharma2411/STREAM-BSG"
 url: "https://github.com/abhisheksharma2411/STREAM-BSG"
-license: MIT
 keywords:
   - fraud detection
   - B2B payments
